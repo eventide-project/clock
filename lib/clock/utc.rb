@@ -1,5 +1,5 @@
 class Clock
-  class UTC
+  class UTC < Clock
     def self.configure(receiver)
       instance = new
       receiver.clock = instance

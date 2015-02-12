@@ -1,5 +1,5 @@
 class Clock
-  class Local
+  class Local < Clock
     def self.configure(receiver)
       instance = new
       receiver.clock = instance
