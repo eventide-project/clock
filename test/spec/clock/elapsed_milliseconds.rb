@@ -1,6 +1,6 @@
 describe Clock do
   context "Elapsed milliseconds" do
-    let(:t1) { Time.now }
+    let(:t1) { Time.at 0 }
     let(:t2) { t1 + 1 }
     let(:difference) { ((t2 - t1) * 1000).round }
     let(:elapsed_milliseconds) { subject.elapsed_milliseconds(start_time, end_time) }
