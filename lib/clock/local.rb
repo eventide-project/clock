@@ -1,5 +1,11 @@
 class Clock
   class Local
+    def self.configure(receiver)
+      instance = new
+      receiver.clock = instance
+      instance
+    end
+
     def now(time=nil)
       time ||= Time.now
       time
