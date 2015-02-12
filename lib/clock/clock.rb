@@ -19,8 +19,15 @@ class Clock
     Time.parse str
   end
 
-  def elapsed_milliseconds(starting, ending)
-    ((ending - starting) * 1000).round
+  def iso8601(time=nil)
+    time ||= now
+    Clock.iso8601(time)
+  end
+  alias :to_s :iso8601
+
+  def timestamp(time=nil)
+    time ||= now
+    Clock.timestamp(time)
   end
 
   def elapsed_milliseconds(starting, ending)
