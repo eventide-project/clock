@@ -21,4 +21,9 @@ class Clock
 
     ((ending - starting) * 1000).round
   end
+
+  def configure(receiver)
+    receiver.clock = self
+    self
+  end
 end
