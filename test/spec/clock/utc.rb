@@ -20,7 +20,7 @@ describe Clock::UTC do
     let(:iso8601_now) { now.utc.iso8601(3) }
 
     specify "Time represented as a sting" do
-      expect(subject.to_s(now)).to eq(iso8601_now)
+      expect(subject.iso8601(now)).to eq(iso8601_now)
     end
 
     context "String representation converted to time" do
