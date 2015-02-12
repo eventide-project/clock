@@ -4,5 +4,4 @@ ENV['PROX_GEM_DIR'] = File.expand_path(File.join(File.dirname(__FILE__), '..', '
 
 source 'https://rubygems.org'
 
-gem 'naught', '1.0.0'
 gem 'rspec', '~> 3.2.0'
