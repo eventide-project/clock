@@ -6,13 +6,18 @@ class Clock
     end
 
     def now(time=nil)
-      time ||= Time.now
+      time ||= Clock.now
       time
     end
 
     def to_s(time=nil)
-      time ||= Time.now
+      time ||= now
       Clock.iso8601(time)
+    end
+
+    def timestamp(time=nil)
+      time ||= now
+      Clock.timestamp(time)
     end
   end
 end

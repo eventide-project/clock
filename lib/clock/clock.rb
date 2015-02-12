@@ -1,10 +1,18 @@
 class Clock
+  def self.now
+    Time.now
+  end
+
   def self.utc(time)
     time.utc
   end
 
   def self.iso8601(time)
     time.iso8601(3)
+  end
+
+  def self.timestamp(time)
+    time.to_f
   end
 
   def self.parse(str)
