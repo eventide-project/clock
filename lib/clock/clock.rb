@@ -19,6 +19,10 @@ class Clock
     Time.parse str
   end
 
+  def parse(str)
+    Clock.parse str
+  end
+
   def iso8601(time=nil)
     time ||= now
     Clock.iso8601(time)
@@ -31,8 +35,8 @@ class Clock
   end
 
   def elapsed_milliseconds(starting, ending)
-    starting = Time.parse(starting) if starting.is_a? String
-    ending = Time.parse(ending) if ending.is_a? String
+    starting = Time.parse(starting) if starting.is_a? String ## TODO Clock.parse
+    ending = Time.parse(ending) if ending.is_a? String  ## TODO Clock.parse
 
     ((ending - starting) * 1000).round
   end
