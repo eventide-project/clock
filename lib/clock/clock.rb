@@ -34,11 +34,11 @@ class Clock
     Clock.timestamp(time)
   end
 
-  def elapsed_milliseconds(starting, ending)
-    starting = Clock.parse(starting) if starting.is_a? String
-    ending = Clock.parse(ending) if ending.is_a? String
+  def elapsed_milliseconds(start_time, end_time)
+    start_time = Clock.parse(start_time) if start_time.is_a? String
+    end_time = Clock.parse(end_time) if end_time.is_a? String
 
-    ((ending - starting) * 1000).round
+    ((end_time - start_time) * 1000).round
   end
 
   def configure(receiver)
