@@ -3,6 +3,7 @@ class Clock
     def self.configure(receiver)
       instance = new
       instance.configure receiver
+      receiver
     end
 
     def now(time=nil)

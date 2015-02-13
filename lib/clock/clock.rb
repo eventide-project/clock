@@ -43,6 +43,6 @@ class Clock
 
   def configure(receiver)
     receiver.clock = self
-    self
+    receiver
   end
 end
