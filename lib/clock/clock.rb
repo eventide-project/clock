@@ -7,8 +7,8 @@ class Clock
     time.utc
   end
 
-  def self.iso8601(time)
-    time.iso8601(3)
+  def self.iso8601(time, precision=3)
+    time.iso8601(precision)
   end
 
   def self.timestamp(time)
@@ -23,14 +23,14 @@ class Clock
     Clock.parse str
   end
 
-  def iso8601(time=nil)
-    time ||= now
-    Clock.iso8601(time)
+  def iso8601(precision=3, time: nil)
+    time ||= self.class.now
+    Clock.iso8601(time, precision)
   end
   alias :to_s :iso8601
 
   def timestamp(time=nil)
-    time ||= now
+    time ||= self.class.now
     Clock.timestamp(time)
   end
 
