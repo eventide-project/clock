@@ -24,13 +24,13 @@ class Clock
   end
 
   def iso8601(precision=3, time: nil)
-    time ||= self.class.now
+    time ||= subclass.now
     Clock.iso8601(time, precision)
   end
   alias :to_s :iso8601
 
   def timestamp(time=nil)
-    time ||= self.class.now
+    time ||= subclass.now
     Clock.timestamp(time)
   end
 
@@ -44,5 +44,9 @@ class Clock
   def configure(receiver)
     receiver.clock = self
     receiver
+  end
+
+  def subclass
+    self
   end
 end
