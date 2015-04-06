@@ -1,14 +1,9 @@
-class Clock
-  class UTC < Clock
-    def self.configure(receiver)
-      instance = new
-      instance.configure receiver
-      receiver
-    end
+module Clock
+  class UTC
+    include Clock
 
-    def now(time=nil)
-      time ||= Clock.now
-      Clock.utc(time)
+    def self.mode
+      -> { Clock.utc(now) }
     end
   end
 end

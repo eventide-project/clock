@@ -8,7 +8,7 @@ describe Clock::UTC do
   end
 
   context "Timestamp" do
-    let(:timestamp) { subject.timestamp(now) }
+    let(:timestamp) { Clock.timestamp(now) }
     let(:float_now) { now.to_f }
 
     specify "Timestamp for local current time" do
@@ -17,10 +17,10 @@ describe Clock::UTC do
   end
 
   context "ISO 8601" do
-    let(:iso8601_now) { now.utc.iso8601(3) }
+    let(:iso8601_now) { now.iso8601(3) }
 
     specify "Time represented as a sting" do
-      expect(subject.iso8601(time: now)).to eq(iso8601_now)
+      expect(subject.iso8601(now)).to eq(iso8601_now)
     end
 
     context "String representation converted to time" do
