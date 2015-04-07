@@ -2,12 +2,7 @@ module Clock
   class Local
     include Clock
 
-    def self.now
-      system_time.now
-    end
-
-    def self.parse(str)
-      time = Parse.parse str
+    def self.canonize(time)
       Clock.local(time)
     end
   end

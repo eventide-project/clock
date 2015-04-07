@@ -2,12 +2,7 @@ module Clock
   class UTC
     include Clock
 
-    def self.now
-      Clock.utc system_time.now
-    end
-
-    def self.parse(str)
-      time = Parse.parse str
+    def self.canonize(time)
       Clock.utc(time)
     end
   end

@@ -1,5 +1,7 @@
 module Clock
   def self.included(cls)
+    cls.extend Now
+    cls.extend Canonize
     cls.extend SystemTime
     cls.extend ISO8601
     cls.extend Parse
@@ -12,21 +14,16 @@ module Clock
     time || self.class.now
   end
 
+  def canonize(time)
+    self.class.canonize time
+  end
+
   def system_time
     self.class.system_time
   end
 
-  def self.local(time)
-    time.getlocal
-  end
-
-  def self.utc(time)
-    time.utc
-  end
-
   def iso8601(time=nil)
-    time ||= now
-    ISO8601.iso8601 time
+    self.class.iso8601 time
   end
 
   def parse(str)
@@ -37,15 +34,28 @@ module Clock
     self.class.timestamp time
   end
 
-  def elapsed_milliseconds(start_time, end_time)
-    ElapsedMilliseconds.elapsed_milliseconds(start_time, end_time)
+  def self.local(time)
+    time.getlocal
   end
 
-  module ISO8601
-    extend self
-    def iso8601(time=nil, precision=3)
-      time ||= now
-      time.iso8601(precision)
+  def self.utc(time)
+    time.utc
+  end
+
+  def elapsed_milliseconds(start_time, end_time)
+    self.class.elapsed_milliseconds(start_time, end_time)
+  end
+
+  module Now
+    def now(time=nil)
+      time ||= system_time.now
+      canonize(time)
+    end
+  end
+
+  module Canonize
+    def canonize(time)
+      time
     end
   end
 
@@ -56,10 +66,20 @@ module Clock
     end
   end
 
+  module ISO8601
+    extend self
+    def iso8601(time=nil, precision=3)
+      time ||= now
+      time.iso8601(precision)
+    end
+  end
+
   module Parse
     extend self
-    def parse(str)
-      SystemTime.system_time.parse str
+    def parse(str, canonize=false)
+      time = SystemTime.system_time.parse str
+      time = canonize(time)
+      time
     end
   end
 
@@ -89,6 +109,10 @@ module Clock
     end
   end
 
+  extend Now
+  extend Canonize
+  extend SystemTime
+  extend ISO8601
   extend Parse
   extend ElapsedMilliseconds
   extend Timestamp
