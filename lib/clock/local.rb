@@ -1,14 +1,9 @@
-class Clock
-  class Local < Clock
-    def self.configure(receiver)
-      instance = new
-      instance.configure receiver
-      receiver
-    end
+module Clock
+  class Local
+    include Clock
 
-    def now(time=nil)
-      time ||= Clock.now
-      time
+    def self.canonize(time)
+      Clock.local(time)
     end
   end
 end

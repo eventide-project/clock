@@ -1,13 +1,8 @@
-class Clock
-  class UTC < Clock
-    def self.configure(receiver)
-      instance = new
-      instance.configure receiver
-      receiver
-    end
+module Clock
+  class UTC
+    include Clock
 
-    def now(time=nil)
-      time ||= Clock.now
+    def self.canonize(time)
       Clock.utc(time)
     end
   end
