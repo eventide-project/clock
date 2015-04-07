@@ -2,10 +2,6 @@ module Clock
   class UTC
     include Clock
 
-    # def self.mode
-    #   -> { Clock.utc(now) }
-    # end
-
     def self.now
       Clock.utc system_time.now
     end

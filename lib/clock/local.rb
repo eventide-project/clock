@@ -2,10 +2,6 @@ module Clock
   class Local
     include Clock
 
-    # def self.mode
-    #   -> { Clock.now }
-    # end
-
     def self.now
       system_time.now
     end
