@@ -10,9 +10,5 @@ module Clock
       time = Parse.parse str
       Clock.utc(time)
     end
-
-    def parse(str)
-      self.class.parse str
-    end
   end
 end
