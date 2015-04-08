@@ -69,7 +69,7 @@ module Clock
   module ISO8601
     extend self
     def iso8601(time=nil, precision=3)
-      time ||= now
+      time = time.nil? ? now : canonize(time)
       time.iso8601(precision)
     end
   end
@@ -96,7 +96,7 @@ module Clock
   module Timestamp
     extend self
     def timestamp(time=nil)
-      time ||= now
+      time = time.nil? ? now : canonize(time)
       time.to_f
     end
   end
