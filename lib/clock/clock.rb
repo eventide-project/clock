@@ -1,4 +1,6 @@
 module Clock
+  class Error < RuntimeError; end
+
   def self.included(cls)
     cls.extend Now
     cls.extend Canonize
@@ -38,6 +40,11 @@ module Clock
     time.getlocal
   end
 
+  def self.localized(time, identifier)
+    clock = Localized.build identifier
+    clock.canonize time
+  end
+
   def self.utc(time)
     time.utc
   end
@@ -68,15 +75,26 @@ module Clock
 
   module ISO8601
     extend self
-    def iso8601(time=nil, precision=3)
+    def iso8601(time=nil, precision=nil)
+      precision ||= self.precision
       time = time.nil? ? now : canonize(time)
       time.iso8601(precision)
+    end
+
+    def precision
+      Defaults.precision
+    end
+
+    module Defaults
+      def self.precision
+        3
+      end
     end
   end
 
   module Parse
     extend self
-    def parse(str, canonize=false)
+    def parse(str, canonize=false) # TODO arg is not used
       time = SystemTime.system_time.parse str
       time = canonize(time)
       time
@@ -105,7 +123,7 @@ module Clock
     def configure(receiver)
       instance = new
       receiver.clock = instance
-      receiver
+      instance
     end
   end
 
