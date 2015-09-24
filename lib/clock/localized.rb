@@ -7,7 +7,7 @@ module Clock
     end
 
     def self.build(identifier=nil)
-      identifier ||= Defaults.identifier
+      identifier = Defaults.identifier(identifier)
       timezone = TZInfo::Timezone.get(identifier)
       new(timezone)
     end
@@ -50,8 +50,18 @@ module Clock
     end
 
     module Defaults
-      def self.identifier
-        'America/Mexico_City'
+      def self.identifier(identifier)
+        env_identifier = ENV['TIMEZONE']
+
+        if env_identifier
+          identifier = env_identifier
+        end
+
+        unless identifier
+          identifier = 'America/Mexico_City'
+        end
+
+        identifier
       end
     end
   end
