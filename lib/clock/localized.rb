@@ -42,13 +42,6 @@ module Clock
       canonize(time, system_time)
     end
 
-    def self.iso8601(time=nil, precision=nil, system_time: nil)
-      precision ||= Clock::ISO8601.precision
-      system_time ||= self.system_time
-      time ||= now(timezone: system_time)
-      time.iso8601(precision)
-    end
-
     def self.canonize(time, system_time)
       timezone = system_time
       total_offset = timezone.current_period.offset.utc_total_offset
