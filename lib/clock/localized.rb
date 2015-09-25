@@ -49,16 +49,6 @@ module Clock
       time.iso8601(precision)
     end
 
-    def parse(str)
-      time = Clock.system_time.parse str
-      canonize(time)
-    end
-
-    def self.parse(str, timezone)
-      time = Clock.system_time.parse str
-      canonize(time, timezone)
-    end
-
     def self.canonize(time, system_time)
       timezone = system_time
       total_offset = timezone.current_period.offset.utc_total_offset
