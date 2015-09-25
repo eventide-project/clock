@@ -1,5 +1,7 @@
 module Clock
   class Localized
+    include Clock
+
     attr_reader :timezone
 
     def initialize(timezone)
