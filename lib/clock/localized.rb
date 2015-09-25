@@ -42,10 +42,10 @@ module Clock
       canonize(time, system_time)
     end
 
-    def self.iso8601(time=nil, precision=nil, timezone: nil)
+    def self.iso8601(time=nil, precision=nil, system_time: nil)
       precision ||= Clock::ISO8601.precision
-      timezone ||= self.timezone
-      time ||= now(timezone: timezone)
+      system_time ||= self.system_time
+      time ||= now(timezone: system_time)
       time.iso8601(precision)
     end
 

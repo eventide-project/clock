@@ -26,7 +26,7 @@ module Clock
 
   def iso8601(time=nil, precision: nil)
     time ||= now
-    self.class.iso8601 time, precision
+    self.class.iso8601 time, precision, system_time: system_time
   end
 
   def parse(str)
