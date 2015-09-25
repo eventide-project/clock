@@ -7,15 +7,6 @@ describe Clock::Local do
     end
   end
 
-  context "Timestamp" do
-    let(:timestamp) { Clock.timestamp(now) }
-    let(:float_now) { now.to_f }
-
-    specify "Timestamp for local current time" do
-      expect(timestamp).to eq float_now
-    end
-  end
-
   context "ISO 8601" do
     let(:iso8601_now) { now.iso8601(3) }
 
