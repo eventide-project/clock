@@ -29,7 +29,7 @@ module Clock
     end
 
     def self.system_time
-      timezone
+      build_timezone
     end
 
     def self.canonize(time, system_time)
