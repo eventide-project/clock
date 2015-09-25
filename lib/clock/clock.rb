@@ -30,8 +30,8 @@ module Clock
   end
 
   def parse(str)
-    time = self.class.parse str
-    canonize(time)
+    time = self.class.parse(str, system_time)
+    # canonize(time)
   end
 
   def timestamp(time=nil)
