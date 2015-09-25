@@ -64,5 +64,11 @@ module Clock
         identifier
       end
     end
+
+    module Substitute
+      def self.build
+        Clock::Substitute.new
+      end
+    end
   end
 end
