@@ -11,7 +11,7 @@ describe Clock::Localized do
   context "ISO 8601" do
     let(:iso8601_now) { now.iso8601(3) }
 
-    specify "Time represented as a sting" do
+    specify "Time represented as a string" do
       expect(clock.iso8601(now)).to eq(iso8601_now)
     end
 
