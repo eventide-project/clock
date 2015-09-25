@@ -13,7 +13,7 @@ module Clock
   end
 
   def now(time=nil)
-    time || self.class.now
+    time || self.class.now(system_time: system_time)
   end
 
   def canonize(time)
@@ -24,8 +24,9 @@ module Clock
     self.class.system_time
   end
 
-  def iso8601(time=nil)
-    self.class.iso8601 time
+  def iso8601(time=nil, precision: nil)
+    time ||= now
+    self.class.iso8601 time, precision
   end
 
   def parse(str)
@@ -54,7 +55,8 @@ module Clock
   end
 
   module Now
-    def now(time=nil)
+    def now(time=nil, system_time: nil)
+      system_time ||= self.system_time
       time ||= system_time.now
       canonize(time)
     end
@@ -134,4 +136,21 @@ module Clock
   extend Parse
   extend ElapsedMilliseconds
   extend Timestamp
+
+  class Substitute
+    include Clock
+
+    attr_writer :system_time
+
+    def system_time
+      @system_time ||= Time
+    end
+
+    def now=(val)
+      system_time = OpenStruct.new
+      system_time.now = val
+      self.system_time = system_time
+      system_time
+    end
+  end
 end
