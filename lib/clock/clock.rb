@@ -63,7 +63,7 @@ module Clock
   end
 
   module Canonize
-    def canonize(time, *)
+    def canonize(time, system_time)
       time
     end
   end
@@ -115,8 +115,8 @@ module Clock
 
   module Timestamp
     extend self
-    def timestamp(time=nil)
-      time = time.nil? ? now : canonize(time)
+    def timestamp(time=nil, system_time: nil)
+      time ||= now(system_time: system_time)
       time.to_f
     end
   end
