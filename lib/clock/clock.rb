@@ -30,7 +30,6 @@ module Clock
   end
 
   def parse(str)
-    # self.class.parse str
     time = self.class.parse str
     canonize(time)
   end
@@ -100,8 +99,7 @@ module Clock
     extend self
     def parse(str)
       time = SystemTime.system_time.parse str
-      time = canonize(time)
-      time
+      canonize(time)
     end
   end
 
