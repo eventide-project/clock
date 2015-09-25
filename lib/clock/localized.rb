@@ -1,23 +1,25 @@
 module Clock
   class Localized
+    include Clock
+
     attr_reader :timezone
 
     def initialize(timezone)
       @timezone = timezone
     end
 
-    def self.build(identifier=nil)
-      timezone = build_timezone(identifier)
+    def self.build(timezone_identifier=nil)
+      timezone = build_timezone(timezone_identifier)
       new(timezone)
     end
 
-    def self.build_timezone(identifier=nil)
-      identifier = Defaults.identifier(identifier)
-      TZInfo::Timezone.get(identifier)
+    def self.build_timezone(timezone_identifier=nil)
+      timezone_identifier = Defaults.timezone_identifier(timezone_identifier)
+      TZInfo::Timezone.get(timezone_identifier)
     end
 
-    def self.configure(receiver, identifier=nil)
-      instance = build(identifier)
+    def self.configure(receiver, timezone_identifier=nil)
+      instance = build(timezone_identifier)
       receiver.clock = instance
       instance
     end
@@ -26,47 +28,12 @@ module Clock
       timezone
     end
 
-    def self.timezone
+    def self.system_time
       build_timezone
     end
 
-    def now(time=nil)
-      time || self.class.now(timezone: timezone)
-    end
-
-    def self.now(time=nil, timezone: nil)
-      timezone ||= self.timezone
-      time ||= timezone.now
-      canonize(time, timezone)
-    end
-
-    def iso8601(time=nil, precision=nil)
-      time ||= now
-      self.class.iso8601 time, precision, timezone: timezone
-    end
-
-    def self.iso8601(time=nil, precision=nil, timezone: nil)
-      precision ||= Clock::ISO8601.precision
-      timezone ||= self.timezone
-      time ||= now(timezone: timezone)
-      time.iso8601(precision)
-    end
-
-    def parse(str)
-      time = Clock.system_time.parse str
-      canonize(time)
-    end
-
-    def self.parse(str, timezone)
-      time = Clock.system_time.parse str
-      canonize(time, timezone)
-    end
-
-    def canonize(time)
-      self.class.canonize(time, timezone)
-    end
-
-    def self.canonize(time, timezone)
+    def self.canonize(time, system_time)
+      timezone = system_time
       total_offset = timezone.current_period.offset.utc_total_offset
       offset_hours, offset_seconds = total_offset.abs.divmod(3600)
       offset_minutes = offset_seconds / 60
@@ -78,18 +45,18 @@ module Clock
     end
 
     module Defaults
-      def self.identifier(identifier)
+      def self.timezone_identifier(timezone_identifier)
         env_identifier = ENV['TIMEZONE']
 
         if env_identifier
-          identifier = env_identifier
+          timezone_identifier = env_identifier
         end
 
-        unless identifier
-          identifier = 'America/Mexico_City'
+        unless timezone_identifier
+          timezone_identifier = 'America/Mexico_City'
         end
 
-        identifier
+        timezone_identifier
       end
     end
 
