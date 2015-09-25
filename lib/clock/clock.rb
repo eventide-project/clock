@@ -79,7 +79,7 @@ module Clock
     extend self
     def iso8601(time=nil, precision=nil)
       precision ||= self.precision
-      time = time.nil? ? now : canonize(time)
+      time ||= now
       time.iso8601(precision)
     end
 

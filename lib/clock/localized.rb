@@ -7,9 +7,13 @@ module Clock
     end
 
     def self.build(identifier=nil)
-      identifier = Defaults.identifier(identifier)
-      timezone = TZInfo::Timezone.get(identifier)
+      timezone = build_timezone(identifier)
       new(timezone)
+    end
+
+    def self.build_timezone(identifier=nil)
+      identifier = Defaults.identifier(identifier)
+      TZInfo::Timezone.get(identifier)
     end
 
     def self.configure(receiver, identifier=nil)
@@ -22,14 +26,29 @@ module Clock
       timezone
     end
 
+    def self.timezone
+      build_timezone
+    end
+
     def now(time=nil)
-      time ||= system_time.now
-      canonize(time)
+      time || self.class.now(timezone: timezone)
+    end
+
+    def self.now(time=nil, timezone: nil)
+      timezone ||= self.timezone
+      time ||= timezone.now
+      canonize(time, timezone)
     end
 
     def iso8601(time=nil, precision=nil)
+      time ||= now
+      self.class.iso8601 time, precision, timezone: timezone
+    end
+
+    def self.iso8601(time=nil, precision=nil, timezone: nil)
       precision ||= Clock::ISO8601.precision
-      time = time.nil? ? now : canonize(time)
+      timezone ||= self.timezone
+      time ||= now(timezone: timezone)
       time.iso8601(precision)
     end
 
@@ -38,7 +57,16 @@ module Clock
       canonize(time)
     end
 
+    def self.parse(str, timezone)
+      time = Clock.system_time.parse str
+      canonize(time, timezone)
+    end
+
     def canonize(time)
+      self.class.canonize(time, timezone)
+    end
+
+    def self.canonize(time, timezone)
       total_offset = timezone.current_period.offset.utc_total_offset
       offset_hours, offset_seconds = total_offset.abs.divmod(3600)
       offset_minutes = offset_seconds / 60
