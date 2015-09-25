@@ -59,10 +59,6 @@ module Clock
       canonize(time, timezone)
     end
 
-    def canonize(time)
-      self.class.canonize(time, timezone)
-    end
-
     def self.canonize(time, system_time)
       timezone = system_time
       total_offset = timezone.current_period.offset.utc_total_offset

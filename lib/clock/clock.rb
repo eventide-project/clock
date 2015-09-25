@@ -17,7 +17,7 @@ module Clock
   end
 
   def canonize(time)
-    self.class.canonize time, system_time
+    self.class.canonize(time, system_time)
   end
 
   def system_time
