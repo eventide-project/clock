@@ -97,9 +97,10 @@ module Clock
 
   module Parse
     extend self
-    def parse(str)
-      time = SystemTime.system_time.parse str
-      canonize(time)
+    def parse(str, system_time: nil)
+      system_time ||= self.system_time
+      time = system_time.parse str
+      canonize(time, system_time)
     end
   end
 
