@@ -32,12 +32,6 @@ module Clock
       timezone
     end
 
-    def self.now(time=nil, system_time: nil)
-      system_time ||= self.system_time
-      time ||= system_time.now
-      canonize(time, system_time)
-    end
-
     def self.canonize(time, system_time)
       timezone = system_time
       total_offset = timezone.current_period.offset.utc_total_offset

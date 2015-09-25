@@ -58,7 +58,7 @@ module Clock
     def now(time=nil, system_time: nil)
       system_time ||= self.system_time
       time ||= system_time.now
-      canonize(time)
+      canonize(time, system_time)
     end
   end
 
