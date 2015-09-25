@@ -32,14 +32,14 @@ module Clock
       build_timezone
     end
 
-    def now(time=nil)
-      time || self.class.now(timezone: timezone)
+    def self.system_time
+      timezone
     end
 
-    def self.now(time=nil, timezone: nil)
-      timezone ||= self.timezone
-      time ||= timezone.now
-      canonize(time, timezone)
+    def self.now(time=nil, system_time: nil)
+      system_time ||= self.system_time
+      time ||= system_time.now
+      canonize(time, system_time)
     end
 
     def iso8601(time=nil, precision=nil)
