@@ -63,7 +63,8 @@ module Clock
       self.class.canonize(time, timezone)
     end
 
-    def self.canonize(time, timezone)
+    def self.canonize(time, system_time)
+      timezone = system_time
       total_offset = timezone.current_period.offset.utc_total_offset
       offset_hours, offset_seconds = total_offset.abs.divmod(3600)
       offset_minutes = offset_seconds / 60
