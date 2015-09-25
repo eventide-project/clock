@@ -96,7 +96,8 @@ module Clock
 
   module Parse
     extend self
-    def parse(str, canonize=false) # TODO arg is not used
+    # def parse(str, canonize=false) # TODO arg is not used
+    def parse(str) # TODO arg is not used
       time = SystemTime.system_time.parse str
       time = canonize(time)
       time
