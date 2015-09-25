@@ -17,7 +17,7 @@ module Clock
   end
 
   def canonize(time)
-    self.class.canonize time
+    self.class.canonize(time, system_time)
   end
 
   def system_time
@@ -26,11 +26,11 @@ module Clock
 
   def iso8601(time=nil, precision: nil)
     time ||= now
-    self.class.iso8601 time, precision
+    self.class.iso8601 time, precision, system_time: system_time
   end
 
   def parse(str)
-    self.class.parse str
+    time = self.class.parse(str, system_time: system_time)
   end
 
   def timestamp(time=nil)
@@ -58,12 +58,12 @@ module Clock
     def now(time=nil, system_time: nil)
       system_time ||= self.system_time
       time ||= system_time.now
-      canonize(time)
+      canonize(time, system_time)
     end
   end
 
   module Canonize
-    def canonize(time)
+    def canonize(time, system_time)
       time
     end
   end
@@ -77,9 +77,9 @@ module Clock
 
   module ISO8601
     extend self
-    def iso8601(time=nil, precision=nil)
+    def iso8601(time=nil, precision=nil, system_time: nil)
       precision ||= self.precision
-      time = time.nil? ? now : canonize(time)
+      time ||= now(system_time: system_time)
       time.iso8601(precision)
     end
 
@@ -96,10 +96,10 @@ module Clock
 
   module Parse
     extend self
-    def parse(str)
-      time = SystemTime.system_time.parse str
-      time = canonize(time)
-      time
+    def parse(str, system_time: nil)
+      system_time ||= self.system_time
+      time = Time.parse str
+      canonize(time, system_time)
     end
   end
 
@@ -115,8 +115,8 @@ module Clock
 
   module Timestamp
     extend self
-    def timestamp(time=nil)
-      time = time.nil? ? now : canonize(time)
+    def timestamp(time=nil, system_time: nil)
+      time ||= now(system_time: system_time)
       time.to_f
     end
   end

@@ -2,7 +2,7 @@ module Clock
   class Local
     include Clock
 
-    def self.canonize(time)
+    def self.canonize(time, *)
       Clock.local(time)
     end
 

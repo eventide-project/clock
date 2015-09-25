@@ -1,19 +1,25 @@
 module Clock
   class Localized
+    include Clock
+
     attr_reader :timezone
 
     def initialize(timezone)
       @timezone = timezone
     end
 
-    def self.build(identifier=nil)
-      identifier = Defaults.identifier(identifier)
-      timezone = TZInfo::Timezone.get(identifier)
+    def self.build(timezone_identifier=nil)
+      timezone = build_timezone(timezone_identifier)
       new(timezone)
     end
 
-    def self.configure(receiver, identifier=nil)
-      instance = build(identifier)
+    def self.build_timezone(timezone_identifier=nil)
+      timezone_identifier = Defaults.timezone_identifier(timezone_identifier)
+      TZInfo::Timezone.get(timezone_identifier)
+    end
+
+    def self.configure(receiver, timezone_identifier=nil)
+      instance = build(timezone_identifier)
       receiver.clock = instance
       instance
     end
@@ -22,23 +28,12 @@ module Clock
       timezone
     end
 
-    def now(time=nil)
-      time ||= system_time.now
-      canonize(time)
+    def self.system_time
+      build_timezone
     end
 
-    def iso8601(time=nil, precision=nil)
-      precision ||= Clock::ISO8601.precision
-      time = time.nil? ? now : canonize(time)
-      time.iso8601(precision)
-    end
-
-    def parse(str)
-      time = Clock.system_time.parse str
-      canonize(time)
-    end
-
-    def canonize(time)
+    def self.canonize(time, system_time)
+      timezone = system_time
       total_offset = timezone.current_period.offset.utc_total_offset
       offset_hours, offset_seconds = total_offset.abs.divmod(3600)
       offset_minutes = offset_seconds / 60
@@ -50,18 +45,18 @@ module Clock
     end
 
     module Defaults
-      def self.identifier(identifier)
+      def self.timezone_identifier(timezone_identifier)
         env_identifier = ENV['TIMEZONE']
 
         if env_identifier
-          identifier = env_identifier
+          timezone_identifier = env_identifier
         end
 
-        unless identifier
-          identifier = 'America/Mexico_City'
+        unless timezone_identifier
+          timezone_identifier = 'America/Mexico_City'
         end
 
-        identifier
+        timezone_identifier
       end
     end
 
