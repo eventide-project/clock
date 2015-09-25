@@ -28,10 +28,6 @@ module Clock
       timezone
     end
 
-    def self.timezone
-      build_timezone
-    end
-
     def self.system_time
       timezone
     end
