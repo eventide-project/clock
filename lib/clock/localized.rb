@@ -8,18 +8,18 @@ module Clock
       @timezone = timezone
     end
 
-    def self.build(identifier=nil)
-      timezone = build_timezone(identifier)
+    def self.build(timezone_identifier=nil)
+      timezone = build_timezone(timezone_identifier)
       new(timezone)
     end
 
-    def self.build_timezone(identifier=nil)
-      identifier = Defaults.identifier(identifier)
-      TZInfo::Timezone.get(identifier)
+    def self.build_timezone(timezone_identifier=nil)
+      timezone_identifier = Defaults.timezone_identifier(timezone_identifier)
+      TZInfo::Timezone.get(timezone_identifier)
     end
 
-    def self.configure(receiver, identifier=nil)
-      instance = build(identifier)
+    def self.configure(receiver, timezone_identifier=nil)
+      instance = build(timezone_identifier)
       receiver.clock = instance
       instance
     end
@@ -45,18 +45,18 @@ module Clock
     end
 
     module Defaults
-      def self.identifier(identifier)
+      def self.timezone_identifier(timezone_identifier)
         env_identifier = ENV['TIMEZONE']
 
         if env_identifier
-          identifier = env_identifier
+          timezone_identifier = env_identifier
         end
 
-        unless identifier
-          identifier = 'America/Mexico_City'
+        unless timezone_identifier
+          timezone_identifier = 'America/Mexico_City'
         end
 
-        identifier
+        timezone_identifier
       end
     end
 
