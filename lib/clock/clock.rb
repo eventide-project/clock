@@ -77,9 +77,9 @@ module Clock
 
   module ISO8601
     extend self
-    def iso8601(time=nil, precision=nil)
+    def iso8601(time=nil, precision=nil, system_time: nil)
       precision ||= self.precision
-      time ||= now
+      time ||= now(system_time: system_time)
       time.iso8601(precision)
     end
 
