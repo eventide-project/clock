@@ -136,21 +136,4 @@ module Clock
   extend Parse
   extend ElapsedMilliseconds
   extend Timestamp
-
-  class Substitute
-    include Clock
-
-    attr_writer :system_time
-
-    def system_time
-      @system_time ||= Time
-    end
-
-    def now=(val)
-      system_time = OpenStruct.new
-      system_time.now = val
-      self.system_time = system_time
-      system_time
-    end
-  end
 end
