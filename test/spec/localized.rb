@@ -1,35 +1,37 @@
+require_relative 'spec_init'
+
 describe Clock::Localized do
-  let(:now) { Time.parse("Jan 1 11:11:11 EDT 2000") }
-  let(:clock) { Clock::Localized.build 'America/New_York' }
+  now = Time.parse("Jan 1 11:11:11 EDT 2000")
+  clock = Clock::Localized.build 'America/New_York'
 
   context "Current Time" do
     specify "Localized" do
-      expect(clock.now).to_not be_utc
+      refute(clock.now.utc?)
     end
   end
 
   context "ISO 8601" do
-    let(:iso8601_now) { now.iso8601(3) }
+    iso8601_now = now.iso8601(3)
 
     specify "Time represented as a string" do
-      expect(clock.iso8601(now)).to eq(iso8601_now)
+      assert(clock.iso8601(now) == iso8601_now)
     end
 
     context "String representation converted to time" do
-      let(:converted_now) { Clock.parse(iso8601_now) }
+      converted_now = Clock.parse(iso8601_now)
 
       specify "Remains localized" do
-        expect(converted_now).to_not be_utc
+        refute(converted_now.utc?)
       end
     end
   end
 
   context "Converting from a string representation" do
-    let(:now_text) { "Jan 1 11:11:11 CDT 2000" }
+    now_text = "Jan 1 11:11:11 CDT 2000"
 
     specify "Is localized" do
       time = clock.parse now_text
-      expect(time.to_s).to eq '2000-01-01 11:11:11 -0400'
+      assert(time.to_s == '2000-01-01 11:11:11 -0500')
     end
   end
 end

@@ -1,10 +1,12 @@
-describe Clock do
-  let(:now) { Time.now }
+require_relative 'spec_init'
 
-  let(:timestamp) { Clock.timestamp(now) }
-  let(:float_now) { now.to_f }
+describe Clock do
+  now = Time.now
+
+  timestamp = Clock.timestamp(now)
+  float_now = now.to_f
 
   specify "Timestamp for local current time" do
-    expect(timestamp).to eq float_now
+    assert(timestamp == float_now)
   end
 end

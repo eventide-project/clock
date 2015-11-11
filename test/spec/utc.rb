@@ -1,24 +1,27 @@
+require_relative 'spec_init'
+
 describe Clock::UTC do
-  let(:now) { Time.now.utc }
+  now = Time.now.utc
+  clock = Clock::UTC
 
   context "UTC" do
     specify "Current time" do
-      expect(subject.now).to be_utc
+      assert(clock.now.utc?)
     end
   end
 
   context "ISO 8601" do
-    let(:iso8601_now) { now.iso8601(3) }
+    iso8601_now = now.iso8601(3)
 
     specify "Time represented as a sting" do
-      expect(subject.iso8601(now)).to eq(iso8601_now)
+      assert(clock.iso8601(now) == iso8601_now)
     end
 
     context "String representation converted to time" do
-      let(:converted_now) { Clock.parse(iso8601_now) }
+      converted_now = Clock.parse(iso8601_now)
 
       specify "Remains UTC" do
-        expect(converted_now).to be_utc
+        assert(converted_now.utc?)
       end
     end
   end

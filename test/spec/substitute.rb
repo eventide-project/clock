@@ -1,43 +1,40 @@
+require_relative 'spec_init'
+
 describe Clock::Substitute do
-  let(:now) { Time.parse("Jan 1 11:11:11 EDT 2000") }
-  let(:clock_class) { Clock::Substitute }
+  now = Time.parse("Jan 1 11:11:11 EDT 2000")
+  clock_class = Clock::Substitute
 
   context "No assigned time" do
-    let(:clock) do
-      clock_class.new
-    end
+    clock = clock_class.new
 
     context "Current Time" do
       specify "Is nil" do
-        expect(clock.now).to be nil
+        assert(clock.now.nil?)
       end
     end
 
     context "ISO 8601" do
       specify "Time represented as a string" do
-        expect(clock.iso8601).to be nil
+        assert(clock.iso8601.nil?)
       end
     end
   end
 
   context "Assigned Time" do
-    let(:clock) do
-      clock = clock_class.new
-      clock.now = now
-      clock
-    end
+    clock = clock_class.new
+    clock.now = now
 
     context "Current Time" do
       specify "Is the assigned time" do
-        expect(clock.now).to be now
+        assert(clock.now == now)
       end
     end
 
     context "ISO 8601" do
-      let(:iso8601_now) { now.iso8601(3) }
+      iso8601_now = now.iso8601(3)
 
       specify "Time represented as a string" do
-        expect(clock.iso8601).to eq(iso8601_now)
+        assert(clock.iso8601 == iso8601_now)
       end
     end
   end
