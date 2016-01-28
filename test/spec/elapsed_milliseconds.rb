@@ -1,6 +1,6 @@
 require_relative 'spec_init'
 
-describe Clock do
+context Clock do
   context "Elapsed milliseconds" do
     t1 = Time.at 0
     t2 = t1 + 1
@@ -11,7 +11,7 @@ describe Clock do
       elapsed_milliseconds = Clock.elapsed_milliseconds(start_time, end_time)
       difference = ((t2 - t1) * 1000).round
 
-      specify "The difference in milliseconds" do
+      test "The difference in milliseconds" do
         assert(elapsed_milliseconds == difference)
       end
     end
@@ -26,7 +26,7 @@ describe Clock do
         end_time = t2_iso8601
         elapsed_milliseconds = Clock.elapsed_milliseconds(start_time, end_time)
 
-        specify "Convert the strings to time and find the difference" do
+        test "Convert the strings to time and find the difference" do
           assert(elapsed_milliseconds == difference)
         end
       end
@@ -37,7 +37,7 @@ describe Clock do
         elapsed_milliseconds = Clock.elapsed_milliseconds(start_time, end_time)
         difference = ((t2 - t1) * 1000).round
 
-        specify "Convert the strings to time and find the difference" do
+        test "Convert the strings to time and find the difference" do
           assert(elapsed_milliseconds == difference)
         end
       end
@@ -48,7 +48,7 @@ describe Clock do
         elapsed_milliseconds = Clock.elapsed_milliseconds(start_time, end_time)
         difference = ((t2 - t1) * 1000).round
 
-        specify "Convert the strings to time and find the difference" do
+        test "Convert the strings to time and find the difference" do
           assert(elapsed_milliseconds == difference)
         end
       end
