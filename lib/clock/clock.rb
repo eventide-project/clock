@@ -105,7 +105,9 @@ module Clock
 
   module ElapsedMilliseconds
     extend self
-    def elapsed_milliseconds(start_time, end_time)
+    def elapsed_milliseconds(start_time, end_time=nil, system_time: nil)
+      end_time ||= now(system_time: system_time)
+
       start_time = parse(start_time) if start_time.is_a? String
       end_time = parse(end_time) if end_time.is_a? String
 
