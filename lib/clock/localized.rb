@@ -9,13 +9,8 @@ module Clock
     end
 
     def self.build(timezone_identifier=nil)
-      timezone = build_timezone(timezone_identifier)
+      timezone = Timezone.build timezone_identifier
       new(timezone)
-    end
-
-    def self.build_timezone(timezone_identifier=nil)
-      timezone_identifier = Defaults.timezone_identifier(timezone_identifier)
-      TZInfo::Timezone.get(timezone_identifier)
     end
 
     def self.configure(receiver, timezone_identifier=nil)
@@ -33,15 +28,8 @@ module Clock
     end
 
     def self.canonize(time, system_time)
-      timezone = system_time
-      total_offset = timezone.current_period.offset.utc_total_offset
-      offset_hours, offset_seconds = total_offset.abs.divmod(3600)
-      offset_minutes = offset_seconds / 60
-
-      sign = total_offset > 0 ? '+' : '-'
-      offset = "#{sign}#{offset_hours.to_s.rjust(2, '0')}:#{offset_minutes.to_s.rjust(2, '0')}"
-
-      Time.new(time.year, time.month, time.day, time.hour, time.min, time.sec, offset)
+      time = time.utc
+      system_time.utc_to_local time
     end
 
     module Defaults
