@@ -41,7 +41,7 @@ module Clock
       end
 
       def offset
-        total_offset = tzinfo_timezone.current_period.offset.utc_total_offset
+        total_offset = current_period.offset.utc_total_offset
 
         hours, seconds = total_offset.abs.divmod 3600
         minutes = seconds / 60
