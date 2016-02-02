@@ -1,8 +1,8 @@
 require_relative 'spec_init'
 
 context Clock::Localized do
-  now = Time.parse("Jan 1 11:11:11 EDT 2000")
-  clock = Clock::Localized.build 'America/New_York'
+  now = Time.parse("Jan 1 11:11:11 PST 2000")
+  clock = Clock::Localized.build 'America/Los_Angeles'
 
   context "Current Time" do
     test "Localized" do
@@ -28,11 +28,11 @@ context Clock::Localized do
 
   context "Converting from a string representation" do
     test "Is localized" do
-      now_text = "Jan 1 11:11:11 CST 2000"
+      now_text = "Jan 1 13:11:11 CST 2000"
 
       time = clock.parse now_text
 
-      assert(time.to_s == '2000-01-01 12:11:11 -0500')
+      assert time == now
     end
   end
 end

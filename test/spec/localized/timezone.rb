@@ -4,12 +4,12 @@ context "TZInfo Timezone Wrapper" do
   # If the current time in America/New_York is 11:11:11 on Jan 1 2000, the
   # tzinfo library will correctly report the time for the time zone as 11:11:11.
   # However, it will set the actual timezone in the Time object to UTC.
-  timezone_identifier = 'America/New_York'
+  timezone_identifier = 'America/Los_Angeles'
   seconds_per_hour = 60 * 60
   utc_offset = -5 * seconds_per_hour
 
   tzinfo_time = Time.parse("Jan 1 11:11:11 UTC 2000")
-  correct_time = Time.parse("Jan 1 11:11:11 EST 2000")
+  correct_time = Time.parse("Jan 1 11:11:11 PST 2000")
 
   test "Current time has its offset adjusted to the timezone" do
     timezone = Clock::Localized::Timezone.build timezone_identifier
@@ -20,7 +20,7 @@ context "TZInfo Timezone Wrapper" do
   end
 
   test "Converting UTC time to the local time of the timezone" do
-    cst_time = Time.parse("Jan 1 10:11:11 CST 2000")
+    cst_time = Time.parse("Jan 1 13:11:11 CST 2000")
     timezone = Clock::Localized::Timezone.build timezone_identifier
 
     localized_time = timezone.utc_to_local cst_time.utc
