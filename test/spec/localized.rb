@@ -14,7 +14,7 @@ context Clock::Localized do
     iso8601_now = now.iso8601(3)
 
     test "Time represented as a string" do
-      assert(clock.iso8601(now) == iso8601_now)
+      assert(clock.iso8601(now, precision: 3) == iso8601_now)
     end
 
     context "String representation converted to time" do
@@ -23,6 +23,14 @@ context Clock::Localized do
       test "Remains localized" do
         assert(!converted_now.utc?)
       end
+    end
+
+    test "Localization" do
+      cst_now = Time.parse("Jan 1 13:11:11 CST 2000")
+
+      iso8601 = clock.iso8601 cst_now
+
+      assert iso8601 == "2000-01-01T11:11:11-08:00"
     end
   end
 
