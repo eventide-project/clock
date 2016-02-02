@@ -27,11 +27,12 @@ context Clock::Localized do
   end
 
   context "Converting from a string representation" do
-    now_text = "Jan 1 11:11:11 CDT 2000"
-
     test "Is localized" do
+      now_text = "Jan 1 11:11:11 CST 2000"
+
       time = clock.parse now_text
-      assert(time.to_s == '2000-01-01 11:11:11 -0500')
+
+      assert(time.to_s == '2000-01-01 12:11:11 -0500')
     end
   end
 end
