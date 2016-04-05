@@ -2,20 +2,24 @@ module Clock
   class Localized
     class Timezone
       attr_reader :tzinfo_timezone
-      attr_writer :now
+      attr_reader :utc_reference
 
-      def initialize(tzinfo_timezone)
+      def initialize(tzinfo_timezone, utc_reference)
         @tzinfo_timezone = tzinfo_timezone
+        @utc_reference = utc_reference
       end
 
-      def self.build(timezone_identifier=nil)
+      def self.build(timezone_identifier=nil, utc_reference: nil)
+        utc_reference ||= Time.now.utc
+
         timezone_identifier = Defaults.timezone_identifier(timezone_identifier)
         tzinfo_timezone = TZInfo::Timezone.get(timezone_identifier)
-        new tzinfo_timezone
+
+        new tzinfo_timezone, utc_reference
       end
 
-      def current_period
-        tzinfo_timezone.current_period
+      def period
+        tzinfo_timezone.period_for_utc utc_reference
       end
 
       def now(tzinfo_time=nil)
@@ -41,7 +45,7 @@ module Clock
       end
 
       def offset
-        total_offset = current_period.offset.utc_total_offset
+        total_offset = period.offset.utc_total_offset
 
         hours, seconds = total_offset.abs.divmod 3600
         minutes = seconds / 60

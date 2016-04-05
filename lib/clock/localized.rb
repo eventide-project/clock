@@ -8,8 +8,8 @@ module Clock
       @timezone = timezone
     end
 
-    def self.build(timezone_identifier=nil)
-      timezone = Timezone.build timezone_identifier
+    def self.build(timezone_identifier=nil, utc_reference: nil)
+      timezone = Timezone.build timezone_identifier, utc_reference: utc_reference
       new(timezone)
     end
 

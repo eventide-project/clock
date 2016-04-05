@@ -2,7 +2,8 @@ require_relative 'bench_init'
 
 context "Localized clock" do
   now = Time.parse("Jan 1 11:11:11 PST 2000")
-  clock = Clock::Localized.build 'America/Los_Angeles'
+  utc_reference = now.dup.utc
+  clock = Clock::Localized.build 'America/Los_Angeles', :utc_reference => utc_reference
 
   context "Current Time" do
     test "Localized" do
@@ -11,14 +12,15 @@ context "Localized clock" do
   end
 
   context "ISO 8601" do
-    iso8601_now = now.iso8601(3)
+    control_iso8601 = now.iso8601(3)
 
     test "Time represented as a string" do
-      assert(clock.iso8601(now, precision: 3) == iso8601_now)
+      iso8601 = clock.iso8601 now, precision: 3
+      assert iso8601 == control_iso8601
     end
 
     context "String representation converted to time" do
-      converted_now = Clock.parse(iso8601_now)
+      converted_now = Clock.parse(control_iso8601)
 
       test "Remains localized" do
         assert(!converted_now.utc?)
