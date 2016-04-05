@@ -33,13 +33,15 @@ module Clock
       end
 
       def convert(tzinfo_time)
+        seconds = tzinfo_time.sec + tzinfo_time.subsec
+
         Time.new(
           tzinfo_time.year,
           tzinfo_time.month,
           tzinfo_time.day,
           tzinfo_time.hour,
           tzinfo_time.min,
-          tzinfo_time.sec,
+          seconds,
           offset
         )
       end

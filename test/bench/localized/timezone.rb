@@ -8,9 +8,9 @@ context "TZInfo Timezone Wrapper" do
   seconds_per_hour = 60 * 60
   utc_offset = -5 * seconds_per_hour
 
-  context "Not during daylight savings" do
-    tzinfo_time = Time.parse("Jan 1 11:11:11 UTC 2000")
-    correct_time = Time.parse("Jan 1 11:11:11 PST 2000")
+  context do
+    tzinfo_time = Time.parse("Jan 1 11:11:11.111 UTC 2000")
+    correct_time = Time.parse("Jan 1 11:11:11.111 PST 2000")
     utc_reference = tzinfo_time
 
     test "Current time has its offset adjusted to the timezone" do
@@ -22,7 +22,7 @@ context "TZInfo Timezone Wrapper" do
     end
 
     test "Converting UTC time to the local time of the timezone" do
-      cst_time = Time.parse("Jan 1 13:11:11 CST 2000")
+      cst_time = Time.parse("Jan 1 13:11:11.111 CST 2000")
       timezone = Clock::Localized::Timezone.build timezone_identifier, :utc_reference => utc_reference
 
       localized_time = timezone.utc_to_local cst_time.utc
@@ -38,8 +38,8 @@ context "TZInfo Timezone Wrapper" do
   end
 
   context "During daylight savings" do
-    tzinfo_time = Time.parse("Jul 1 11:11:11 UTC 2000")
-    correct_time = Time.parse("Jul 1 11:11:11 PDT 2000")
+    tzinfo_time = Time.parse("Jul 1 11:11:11.111 UTC 2000")
+    correct_time = Time.parse("Jul 1 11:11:11.111 PDT 2000")
     utc_reference = tzinfo_time
 
     test "Current time has its offset adjusted to the timezone with daylight savings" do
