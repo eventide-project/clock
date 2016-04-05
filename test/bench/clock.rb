@@ -1,6 +1,6 @@
-require_relative 'spec_init'
+require_relative 'bench_init'
 
-context Clock do
+context "Clock" do
   now = Time.now
 
   timestamp = Clock.timestamp(now)

@@ -1,6 +1,6 @@
-require_relative 'spec_init'
+require_relative 'bench_init'
 
-context Clock::Local do
+context "Local clock" do
   now = Time.now
   clock = Clock::Local.new
 

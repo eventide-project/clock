@@ -1,6 +1,6 @@
-require_relative 'spec_init'
+require_relative 'bench_init'
 
-context Clock::UTC do
+context "UTC clock" do
   now = Time.now.utc
   clock = Clock::UTC
 

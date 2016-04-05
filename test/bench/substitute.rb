@@ -1,6 +1,6 @@
-require_relative 'spec_init'
+require_relative 'bench_init'
 
-context Clock::Substitute do
+context "Substitute clock" do
   now = Time.parse("Jan 1 11:11:11 EDT 2000")
   clock_class = Clock::Substitute
 

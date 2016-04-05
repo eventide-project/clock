@@ -1,6 +1,6 @@
-require_relative 'spec_init'
+require_relative 'bench_init'
 
-context Clock do
+context "Clock" do
   context "Elapsed milliseconds" do
     t1 = Time.at 0
     t2 = t1 + 1

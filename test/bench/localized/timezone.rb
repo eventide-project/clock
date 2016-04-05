@@ -1,4 +1,4 @@
-require_relative '../spec_init'
+require_relative '../bench_init'
 
 context "TZInfo Timezone Wrapper" do
   # If the current time in America/New_York is 11:11:11 on Jan 1 2000, the
