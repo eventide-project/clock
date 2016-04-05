@@ -23,10 +23,6 @@ module Clock
       timezone
     end
 
-    def self.system_time
-      build_timezone
-    end
-
     def self.canonize(time, system_time)
       time = time.utc
       system_time.utc_to_local time
