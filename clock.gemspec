@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   s.name = 'clock'
   s.summary = 'Clock interface with support for dependency configuration for real and null object implementations'
-  s.version = '0.0.3.1'
+  s.version = '0.1.0.0'
   s.description = ' '
 
   s.authors = ['Obsidian Software, Inc']
