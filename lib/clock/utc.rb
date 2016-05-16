@@ -6,6 +6,10 @@ module Clock
       Clock.utc(time)
     end
 
+    def shift(time)
+      self.class.shift(time)
+    end
+
     def self.shift(time)
       if time.is_a? String
         time = Time.parse(time)
