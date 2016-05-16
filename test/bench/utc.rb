@@ -25,4 +25,15 @@ context "UTC clock" do
       end
     end
   end
+
+  context "Shift timezone to UTC" do
+    local = Time.parse("Jan 1 11:11:11.111 PST 2000")
+    shifted_control = Time.parse("Jan 1 11:11:11.111 UTC 2000")
+
+    shifted = clock.shift(local)
+
+    test "UTC time is same time as original time, except in the UTC zone" do
+      assert(shifted == shifted_control)
+    end
+  end
 end
