@@ -6,11 +6,11 @@ module Clock
       Clock.utc(time)
     end
 
-    def shift(time)
+    def coerce(time)
       self.class.shift(time)
     end
 
-    def self.shift(time)
+    def self.coerce(time)
       if time.is_a? String
         time = Time.parse(time)
       end
