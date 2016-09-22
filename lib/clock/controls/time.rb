@@ -1,9 +1,10 @@
 module Clock
   module Controls
     module Time
-      def self.example(time=nil)
+      def self.example(time=nil, precision: nil)
         time ||= Raw.example
-        ISO8601.example(time)
+
+        ISO8601.example(time, precision: precision)
       end
 
       module Raw
