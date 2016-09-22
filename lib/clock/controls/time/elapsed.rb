@@ -2,15 +2,17 @@ module Clock
   module Controls
     module Time
       module Elapsed
-        def self.example(units, reference: nil, precision: nil)
-          time = Raw.example units, reference: reference, precision: precision
+        def self.example(units=nil, precision: nil)
+          time = Raw.example units, precision: precision
 
           ISO8601.example time, precision: precision
         end
 
         module Raw
-          def self.example(units, reference: nil, precision: nil)
-            reference ||= Time::Raw.example
+          def self.example(units=nil, precision: nil)
+            units ||= 1
+
+            reference = Time::Raw.example
 
             unit_duration = Unit::Duration::Seconds.example precision: precision
 
