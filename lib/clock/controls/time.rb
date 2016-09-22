@@ -7,15 +7,13 @@ module Clock
         ISO8601.example(time, precision: precision)
       end
 
-      module Raw
-        def self.example
-          Reference.get
-        end
+      def self.reference
+        ::Time.utc 2000
       end
 
-      module Reference
-        def self.get
-          ::Time.utc 2000
+      module Raw
+        def self.example
+          Time.reference
         end
       end
 
