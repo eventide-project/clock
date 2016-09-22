@@ -9,8 +9,13 @@ module Clock
 
       module Raw
         def self.example
-          time = ::Time.parse("Jan 1 00:00:00 UTC 2000")
-          Clock::UTC.now(time)
+          Reference.get
+        end
+      end
+
+      module Reference
+        def self.get
+          ::Time.utc 2000
         end
       end
 
