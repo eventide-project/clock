@@ -1,4 +1,4 @@
-require_relative 'bench_init'
+require_relative 'automated_init'
 
 context "Localized clock" do
   now = Time.parse("Jan 1 11:11:11 PST 2000")
