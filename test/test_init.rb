@@ -10,4 +10,4 @@ require 'clock/controls'
 
 require 'test_bench'; TestBench.activate
 
-include Clock
+require 'pp'
