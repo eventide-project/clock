@@ -20,7 +20,7 @@ module Clock
       module ISO8601
         def self.example(time=nil, precision: nil)
           time ||= Raw.example
-          UTC.iso8601(time, precision)
+          UTC.iso8601(time, precision: precision)
         end
       end
     end
