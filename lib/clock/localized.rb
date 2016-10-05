@@ -28,7 +28,7 @@ module Clock
       system_time.utc_to_local time
     end
 
-    def self.iso8601(time, precision, system_time: nil)
+    def self.iso8601(time, precision: precision, system_time: nil)
       time ||= now time, system_time: system_time
       utc_time = time.utc
       local_time = system_time.utc_to_local utc_time

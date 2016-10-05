@@ -26,7 +26,7 @@ module Clock
 
   def iso8601(time=nil, precision: nil)
     time ||= now
-    self.class.iso8601 time, precision, system_time: system_time
+    self.class.iso8601 time, precision: precision, system_time: system_time
   end
 
   def parse(str)
@@ -77,7 +77,7 @@ module Clock
 
   module ISO8601
     extend self
-    def iso8601(time=nil, precision=nil, system_time: nil)
+    def iso8601(time=nil, precision: nil, system_time: nil)
       precision ||= self.precision
       time ||= now(system_time: system_time)
       time.iso8601(precision)
