@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 Gem::Specification.new do |s|
-  s.name = 'clock'
+  s.name = 'evt-clock'
   s.summary = 'Clock interface with support for dependency configuration for real and null object implementations'
   s.version = '0.4.0.2'
   s.description = ' '
