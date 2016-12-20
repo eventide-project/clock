@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   s.name = 'evt-clock'
   s.summary = 'Clock interface with support for dependency configuration for real and null object implementations'
-  s.version = '0.4.0.2'
+  s.version = '0.4.0.3'
   s.description = ' '
 
   s.authors = ['The Eventide Project']
@@ -18,5 +18,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'tzinfo'
   s.add_runtime_dependency 'naught'
 
-  s.add_development_dependency 'ntl-test_bench'
+  s.add_development_dependency 'test_bench'
 end
