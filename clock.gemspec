@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   s.name = 'evt-clock'
   s.summary = 'Clock interface with support for dependency configuration for real and null object implementations'
-  s.version = '0.4.0.5'
+  s.version = '0.4.0.6'
   s.description = ' '
 
   s.authors = ['The Eventide Project']
