@@ -3,9 +3,9 @@ module Clock
     module Time
       module Offset
         def self.example(amount=nil, precision: nil, time: nil)
-          offset_time = Raw.example amount, precision: precision, time: time
+          offset_time = Raw.example(amount, precision: precision, time: time)
 
-          ISO8601.example offset_time, precision: precision
+          ISO8601.example(offset_time, precision: precision)
         end
 
         module Raw
