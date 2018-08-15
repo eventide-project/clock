@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   s.name = 'evt-clock'
   s.summary = 'Clock interface with support for UTC and local timezones, timezone coercion, and dependency substitution'
-  s.version = '0.4.0.7'
+  s.version = '0.4.0.8'
   s.description = ' '
 
   s.authors = ['The Eventide Project']
