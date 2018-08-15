@@ -74,7 +74,7 @@ local_time = Clock.localized(time, identifier)
 
 milliseconds = Clock.elapsed_milliseconds(start_time, end_time)
 
-## Configure
+## Dependency Configuration
 
 This library was written according to [The Doctrine of Useful Objects](http://docs.eventide-project.org/user-guide/useful-objects.html). As such, it can be configured as `:clock`, and has a useful inert substitute.
 
