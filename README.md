@@ -1,6 +1,6 @@
 # clock
 
-Clock interface with support for dependency configuration for real and null object implementations.
+Clock interface with support for UTC and local timezones, timezone coercion, and dependency substitution.
 
 ## Synopsis
 
