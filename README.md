@@ -7,37 +7,72 @@ Clock interface with support for UTC and local timezones, timezone coercion, and
 ```ruby
 require 'clock'
 
-# generate a serialized time
-time = Clock::UTC.iso8601 # "2018-08-14T13:04:42.650Z"
-Clock.parse(time) # Time instance in UTC
+# Get current time
+utc_time = Clock::UTC.now # Current time in the UTC timezone
+local_time = Clock::Local.now # Current time in the local timezone
 
-# de-serialize time
-raw = Clock::UTC.now # Time instance in UTC
-Clock::UTC.iso8601(raw) # "2018-08-14T13:04:42.650Z"
+# Get an ISO8601 representation of the current time
+str_time = Clock::UTC.iso8601 # "2018-08-14T13:04:42.650Z"
 
-# convert local time to UTC
-local = Clock::Local.now # Time instance according to locale
-Clock::UTC.coerce(local) # Time instance in UTC
+# Parse a string representation of time
+time = Clock.parse(str_time) # Time instance
 
-# clock with arbitrary Locale
+# Convert local time to UTC
+Clock::UTC.coerce(local_time) # Time instance in UTC
+
+# Clock for another timezone
 clock = Clock::Localized.build('America/Los_Angeles')
 clock.iso8601 # "2018-08-14T06:40:34-07:00"
 ```
 
-## Interface
+## Implementation
 
-`clock` has 3 implementations of the same interface:
+The `clock` interface has 3 implementations:
 
  - `UTC` for working with UTC time
  - `Local` for working with system local time
- - `Locale` for working with timezones in an arbitrary locale
+ - `Localized` for working with timezones in an arbitrary locale
 
-Each of those implementations contains the following methods, in the correct timezone:
+## Interface
 
- - `now` returns the current time
- - `iso8601` returns the current time as a serialized string
- - `iso8601(Time)` returns the given time as a serialized string
- - `coerce(Time)` returns the given time in the appropriate timezone.
+Each of the implementations has the following methods:
+
+- `now` returns the current time
+- `iso8601` returns the current time as an ISO8601 time string
+- `iso8601(time)` returns the given time as an ISO8601 time string
+- `coerce(time)` Converts the given time to the clock's timezone
+- `parse(str)` Converts a string representation of time to a time value
+- `elapsed_milliseconds(start_time, end_time)` Calculates the difference in milliseconds between two times
+- `timestamp` Returns the current time as a numerical float timestamp
+- `timestamp(time)` Returns the given time as a numerical float timestamp
+
+The methods of each clock are available on the instance of a clock as well as on its class.
+
+## Utility Interface
+
+`Clock` module can be used as a function library providing quick access to the capabilities offered by the individual clock implementations.
+
+```ruby
+
+time = Clock.now
+
+str_time = Clock.iso8601
+str_time = Clock.iso8601(time)
+
+time = Clock.parse(str_time)
+
+timestamp = Clock.timestamp
+timestamp = Clock.timestamp(time)
+
+local_time = Clock.local
+local_time = Clock.local(time)
+
+utc_time = Clock.utc
+utc_time = Clock.utc(time)
+
+local_time = Clock.localized(time, identifier)
+
+milliseconds = Clock.elapsed_milliseconds(start_time, end_time)
 
 ## Configure
 
