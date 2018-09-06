@@ -73,6 +73,7 @@ utc_time = Clock.utc(time)
 local_time = Clock.localized(time, identifier)
 
 milliseconds = Clock.elapsed_milliseconds(start_time, end_time)
+```
 
 ## Dependency Configuration
 
