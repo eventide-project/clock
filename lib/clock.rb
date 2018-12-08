@@ -1,5 +1,4 @@
 require 'time'
-require 'tzinfo'
 require 'ostruct'
 require 'naught'
 
@@ -7,5 +6,3 @@ require 'clock/clock'
 require 'clock/substitute'
 require 'clock/utc'
 require 'clock/local'
-require 'clock/localized'
-require 'clock/localized/timezone'
