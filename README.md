@@ -19,19 +19,14 @@ time = Clock.parse(str_time) # Time instance
 
 # Convert local time to UTC
 Clock::UTC.coerce(local_time) # Time instance in UTC
-
-# Clock for another timezone
-clock = Clock::Localized.build('America/Los_Angeles')
-clock.iso8601 # "2018-08-14T06:40:34-07:00"
 ```
 
 ## Implementation
 
-The `clock` interface has 3 implementations:
+The `clock` interface has 2 implementations:
 
  - `UTC` for working with UTC time
  - `Local` for working with system local time
- - `Localized` for working with timezones in an arbitrary locale
 
 ## Interface
 
@@ -69,8 +64,6 @@ local_time = Clock.local(time)
 
 utc_time = Clock.utc
 utc_time = Clock.utc(time)
-
-local_time = Clock.localized(time, identifier)
 
 milliseconds = Clock.elapsed_milliseconds(start_time, end_time)
 ```

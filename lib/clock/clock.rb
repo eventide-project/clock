@@ -41,11 +41,6 @@ module Clock
     time.getlocal
   end
 
-  def self.localized(time, identifier)
-    clock = Localized.build identifier
-    clock.canonize time
-  end
-
   def self.utc(time)
     time.utc
   end
