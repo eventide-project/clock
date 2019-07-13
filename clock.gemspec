@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
   s.required_ruby_version = '>= 2.3.3'
 
-  s.add_runtime_dependency 'naught'
+  s.add_runtime_dependency 'evt-mimic'
 
   s.add_development_dependency 'test_bench'
 end
