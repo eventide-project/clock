@@ -1,6 +1,6 @@
 require 'time'
 require 'ostruct'
-require 'naught'
+require 'mimic'
 
 require 'clock/clock'
 require 'clock/substitute'

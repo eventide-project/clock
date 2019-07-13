@@ -5,7 +5,7 @@ module Clock
     attr_writer :system_time
 
     def system_time
-      @system_time ||= NullTime.build
+      @system_time ||= self.class.null_time
     end
 
     def now=(val)
@@ -22,9 +22,10 @@ module Clock
       nil
     end
 
-    class NullTime < Naught.build
-      def self.build
-        new
+    def self.null_time
+      Mimic.(Object) do
+        def method_missing(*)
+        end
       end
     end
   end
