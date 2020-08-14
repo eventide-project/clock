@@ -1,7 +1,8 @@
 require_relative 'automated_init'
 
 context "Substitute clock" do
-  now = Time.parse("Jan 1 11:11:11 EDT 2000")
+  now = Clock::Controls::Time::Raw.example
+
   clock_class = Clock::Substitute
 
   context "No assigned time" do

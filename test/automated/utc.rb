@@ -27,8 +27,8 @@ context "UTC clock" do
   end
 
   context "Shift timezone to UTC" do
-    local = Time.parse("Jan 1 11:11:11.111 PST 2000")
-    coerced_control = Time.parse("Jan 1 11:11:11.111 UTC 2000")
+    local = Time.local(2000, 1, 1, 11, 11, 11, 111)
+    coerced_control = Time.utc(2000, 1, 1, 11, 11, 11, 111)
 
     coerced = clock.coerce(local)
 
