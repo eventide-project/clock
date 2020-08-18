@@ -17,7 +17,11 @@ module Clock
 
             offset = amount * scale
 
-            time + offset
+            if RUBY_ENGINE == 'mruby'
+              time + offset.to_f
+            else
+              time + offset
+            end
           end
 
           def self.scale(precision: nil)
