@@ -15,9 +15,9 @@ module Clock
       system_time
     end
 
-    def iso8601(*args)
+    def iso8601(time=nil, precision: nil)
       if system_time.is_a? OpenStruct
-        return super(*args)
+        return super(time, precision: precision)
       end
       nil
     end
