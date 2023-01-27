@@ -122,7 +122,7 @@ module Clock
     def configure(receiver, attr_name: nil)
       attr_name ||= :clock
       instance = new
-      receiver.public_send(:"#{attr_name}=", instance)
+      receiver.public_send("#{attr_name}=", instance)
       instance
     end
   end
