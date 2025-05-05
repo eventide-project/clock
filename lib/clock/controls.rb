@@ -1,2 +1,2 @@
-require 'clock/controls/time'
-require 'clock/controls/time/offset'
+require "clock/controls/time"
+require "clock/controls/time/offset"

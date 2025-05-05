@@ -1,4 +1,4 @@
-require_relative '../automated_init'
+require_relative "../automated_init"
 
 context "Substitute clock" do
   context "ISO8601 Precision" do
